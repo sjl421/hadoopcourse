@@ -3,7 +3,12 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import org.apache.hadoop.io.WritableComparable;
-
+/**
+ *此例子是由两个字符串数据构成的一个类型
+ * 前一个字符串表示城市1
+ * 后一个字符串表示城市2 
+ * */
+ 
 public class CityTextPair implements WritableComparable<TextPair> {
 	String city1 ;    //城市1
 	String city2 ;    //城市2
