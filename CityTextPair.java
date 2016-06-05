@@ -8,9 +8,9 @@ public class CityTextPair implements WritableComparable<TextPair> {
 	String city1 ;    //城市1
 	String city2 ;    //城市2
 
-	public TextPair(){}
+	public CityTextPair(){}
 
-	public TextPair(String city1,String city2){
+	public CityTextPair(String city1,String city2){
 		set(city1,city2) ;
 	}
 	@Override
@@ -24,11 +24,11 @@ public class CityTextPair implements WritableComparable<TextPair> {
 		out.writeUTF(city2);
 	}
 	@Override
-	public int compareTo(TextPair tp) {
+	public int compareTo(CityTextPair tp) {
 		return 1;
 	}
 	public String toString(){
-		String str = String.valueOf(city1)+"、"+String.valueOf(city2) ;
+		String str = String.valueOf(city1)+","+String.valueOf(city2) ;
 		return str ;
 	}
 	public void set(String first,String second){
