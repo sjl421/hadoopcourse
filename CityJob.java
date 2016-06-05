@@ -22,6 +22,7 @@ public class CityJob {
 		protected void map(Object key, Text value,Context context)
 				throws IOException, InterruptedException {
 			StringTokenizer line = new StringTokenizer(value.toString()) ; 
+			// 为了讲解使用，在实际应用中的mapper里面切忌使用System.out.println
 			System.out.println("每行数据： "+value.toString());
 			Text local = new Text(line.nextToken()) ;
 			System.out.println("省份： "+local);
