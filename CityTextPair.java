@@ -25,20 +25,21 @@ public class CityTextPair implements WritableComparable<TextPair> {
 	}
 	@Override
 	public int compareTo(CityTextPair tp) {
+		//TODO :用比较，这里省略
 		return 1;
 	}
 	public String toString(){
-		String str = String.valueOf(city1)+","+String.valueOf(city2) ;
-		return str ;
+		return city1 +","+city2;
 	}
 	public void set(String first,String second){
 		this.city1 = first ;
 		this.city2 = second ;
 	}
-	//============
+	
 	public String getCity1() {
 		return city1;
 	}
+	
 	public String getCity2() {
 		return city2;
 	}
