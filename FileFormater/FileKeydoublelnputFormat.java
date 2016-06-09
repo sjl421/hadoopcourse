@@ -1,4 +1,3 @@
-FileKeydoublelnputFormat类的实现程序代码如下：
 package com.zhangyu.mr;
 import java.io.IOException;
 import java.util.List;
@@ -10,6 +9,7 @@ import org.apache.hadoop.mapreduce.JobContext;
 import org.apache.hadoop.mapreduce.RecordReader;
 import org.apache.hadoop.mapreduce.TaskAttemptContext;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+
 public class FileKeydoublelnputFormat extends FileInputFormat<Text, Text> {
 	public FileKeydoublelnputFormat(){}
 	@Override
