@@ -20,39 +20,37 @@ import org.apache.hadoop.mapred.Reporter;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 public class MainRecirus extends Configured implements Tool{
-	//迭代次数
-	public static int count = 0 ;
 	public MainRecirus() {}
 	
 	public static class smapper extends MapReduceBase 
 	implements Mapper<LongWritable, Text, Text, Text>{
+		setup(){}
 		@Override
 		public void map(LongWritable key, Text value,
 				OutputCollector<Text, Text> output, Reporter reporter)
 				throws IOException {
-			StringTokenizer itr = new StringTokenizer(value.toString()) ;
-			String code = itr.nextToken() ;
-			String name = itr.nextToken() ;
-			String height = itr.nextToken() ;
-			String sex = itr.nextToken() ;
-			String chara = itr.nextToken() ;
-			System.out.println("学号= "+code+" "+
-			"其他信息= "+name+":"+height+":"+sex+":"+chara);
-			String s = name+" "+height+" "+sex+" "+chara ;
+   StringTokenizer itr   = new StringTokenizer(value.toString()) ;
+   String code           = itr.nextToken() ;
+   String name           = itr.nextToken() ;
+   String height         = itr.nextToken() ;
+   String sex            = itr.nextToken() ;
+   String chara          = itr.nextToken() ;
+   System.out.println("学号= "+code+" "+
+   "其他信息                 = "+name+":"+height+":"+sex+":"+chara);
+   String s              = name+" "+height+" "+sex+" "+chara ;
 			if(check(s)){
 				output.collect(new Text(code), new Text(s)) ;
 			}
 		}
 	}
-	public static boolean check(String s){
-		
+	public static boolean check(String s,String attr_check){
 		String value ;
 		StringTokenizer itr = new StringTokenizer(s.toString()) ;
 		String name = itr.nextToken() ;
 		String height = itr.nextToken() ;
 		String sex = itr.nextToken() ;
 		String chara = itr.nextToken() ;
-		if(count==0){
+		if(attr_check.equals("height")){
 			//第一次迭代，计算身高
 			value = height ;
 			float f = Float.valueOf(value) ;
@@ -63,8 +61,7 @@ public class MainRecirus extends Configured implements Tool{
 			}else{
 				return false ;
 			}
-		}
-		if(count==1){
+		}else if(attr_check.equals("sex"){
 			//第二次迭代，检查性别
 			value = sex ;
 			int f = Integer.valueOf(value) ;
@@ -73,8 +70,7 @@ public class MainRecirus extends Configured implements Tool{
 			}else{
 				return false ;
 			}
-		}
-		if(count==2){
+		}else if(attr_check.equals("chara"){
 			//第二次迭代，检查特长
 			value = chara ;
 			int f = Integer.valueOf(value) ;
@@ -103,6 +99,8 @@ public class MainRecirus extends Configured implements Tool{
 	@SuppressWarnings("static-access")
 	@Override
 	public int run(String[] args) throws Exception {
+ 		String[] attrs={'height','sex','chara'}
+ 		
 		Configuration conf = new Configuration() ;
 		String[][] pathfile = {
 				{"hdfs://CDH1:8020/zhangyu/data/recirus.txt",
@@ -113,8 +111,10 @@ public class MainRecirus extends Configured implements Tool{
 					"hdfs://CDH1:8020/zhangyu/outdata/outRecirus2"}
 			} ;
 		
-		for(int i=0;i<3;i++){
+		for(int i=0;i<attrs.length;i++){
 			JobConf job = new JobConf(conf,MainRecirus.class) ;
+			//将此次迭代检查的项目传递给Map任务
+			job.getConfiguration().set('app.custom.attr',attrs[i]);
 			job.setMapperClass(smapper.class) ;
 			job.setMapOutputKeyClass(Text.class);
 			job.setMapOutputValueClass(Text.class);
