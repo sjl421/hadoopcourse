@@ -53,7 +53,7 @@ public class WholeFileRecordReader extends RecordReader<NullWritable, Text>{
 			Path file = fileSplit.getPath() ;
 			System.out.println(file.getName());
 			try {
-				
+				//实现读取整个分片 
 				IOUtils.readFully(fis, content,0,content.length);
 				value.set(new Text(content));
 				
