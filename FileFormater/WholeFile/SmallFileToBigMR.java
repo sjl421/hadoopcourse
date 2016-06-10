@@ -19,6 +19,7 @@ public class SmallFileToBigMR {
 			System.out.println("value: \n"+value);
 			FileSplit fsp = (FileSplit) context.getInputSplit() ;
 			String fileName = fsp.getPath().getName()+"\n" ;
+			// 文件名作为key value是此文件的内容
 			context.write(new Text(fileName), value);
 		}
 	}
