@@ -34,6 +34,7 @@ public class WholeFileInputFormat extends FileInputFormat<NullWritable, Text> {
 	public List<InputSplit> getSplits(JobContext arg0) throws IOException {
 		return super.getSplits(arg0);
 	}
+	// 是否可以继续分片
 	@Override
 	protected boolean isSplitable(JobContext context, Path filename) {
 		return false;
